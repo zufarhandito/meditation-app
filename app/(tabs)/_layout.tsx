@@ -1,35 +1,129 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
+import { Tabs } from "expo-router";
+import { Home, Leaf, Moon, Music, User } from "lucide-react-native";
+import { useColorScheme } from "nativewind";
+import React from "react";
+import { Text, View } from "react-native";
 
-import { HapticTab } from '@/components/haptic-tab';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+const activeBg = "#8E97FD";
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+const Layout = () => {
+  const { colorScheme } = useColorScheme();
+
+  const activeColor = colorScheme === "dark" ? "#fff" : "#fff";
+  const inactiveColor = colorScheme === "dark" ? "#aaa" : "#888";
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         headerShown: false,
-        tabBarButton: HapticTab,
-      }}>
+        tabBarShowLabel: true,
+        tabBarStyle: {
+          backgroundColor: colorScheme === "dark" ? "#03174C" : "#fff",
+          borderTopWidth: 0,
+          elevation: 4,
+          height: 136,
+        },
+        tabBarLabel: ({ focused, children }) => (
+          <Text
+            style={{
+              fontSize: 12,
+              fontWeight: focused ? "700" : "400",
+              color: focused
+                ? colorScheme === "dark"
+                  ? "#fff"
+                  : activeBg
+                : inactiveColor,
+              marginTop: 12,
+            }}
+          >
+            {children}
+          </Text>
+        ),
+        tabBarIconStyle: {
+          marginTop: 16,
+        },
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          title: "Home",
+          tabBarIcon: ({ focused, size }) => (
+            <ViewWrapper focused={focused}>
+              <Home color={focused ? activeColor : inactiveColor} size={size} />
+            </ViewWrapper>
+          ),
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="sleep"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          title: "Sleep",
+          tabBarIcon: ({ focused, size }) => (
+            <ViewWrapper focused={focused}>
+              <Moon color={focused ? activeColor : inactiveColor} size={size} />
+            </ViewWrapper>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="meditate"
+        options={{
+          title: "Meditate",
+          tabBarIcon: ({ focused, size }) => (
+            <ViewWrapper focused={focused}>
+              <Leaf color={focused ? activeColor : inactiveColor} size={size} />
+            </ViewWrapper>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="music"
+        options={{
+          title: "Music",
+          tabBarIcon: ({ focused, size }) => (
+            <ViewWrapper focused={focused}>
+              <Music
+                color={focused ? activeColor : inactiveColor}
+                size={size}
+              />
+            </ViewWrapper>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: "Afshar",
+          tabBarIcon: ({ focused, size }) => (
+            <ViewWrapper focused={focused}>
+              <User color={focused ? activeColor : inactiveColor} size={size} />
+            </ViewWrapper>
+          ),
         }}
       />
     </Tabs>
   );
-}
+};
+
+const ViewWrapper = ({
+  children,
+  focused,
+}: {
+  children: React.ReactNode;
+  focused: boolean;
+}) => {
+  return (
+    <View
+      style={{
+        backgroundColor: focused ? activeBg : "transparent",
+        padding: 12,
+        borderRadius: 18,
+      }}
+    >
+      {children}
+    </View>
+  );
+};
+
+export default Layout;

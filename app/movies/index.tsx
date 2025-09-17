@@ -3,8 +3,8 @@ import { Text, View } from "react-native";
 
 const index = () => {
   return (
-    <View className="flex-1 dark:bg-primary">
-      <Text className="">index</Text>
+    <View>
+      <Text>index</Text>
     </View>
   );
 };
