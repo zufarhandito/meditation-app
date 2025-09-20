@@ -21,7 +21,7 @@ const Layout = () => {
           backgroundColor: colorScheme === "dark" ? "#03174C" : "#fff",
           borderTopWidth: 0,
           elevation: 4,
-          height: 136,
+          // height: 136,
         },
         tabBarLabel: ({ focused, children }) => (
           <Text

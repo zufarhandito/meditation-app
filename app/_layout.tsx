@@ -2,7 +2,6 @@ import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
-import { SafeAreaProvider } from "react-native-safe-area-context";
 import "./global.css";
 
 SplashScreen.preventAutoHideAsync();
@@ -31,16 +30,28 @@ export default function RootLayout() {
     }
   }, [loaded, error]);
 
+  // useEffect(() => {
+  //   NavigationBar.setBackgroundColorAsync(
+  //     colorScheme === "dark" ? "#03174C" : "#fff"
+  //   );
+  //   NavigationBar.setButtonStyleAsync(
+  //     colorScheme === "dark" ? "light" : "dark"
+  //   );
+  // }, [colorScheme]);
+
   if (!loaded && !error) {
     return null;
   }
 
   return (
-    <SafeAreaProvider>
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="(tabs)" />
-        <Stack.Screen name="movies/[id]" />
-      </Stack>
-    </SafeAreaProvider>
+    // <StatusBar
+    //   barStyle={colorScheme === "dark" ? "light-content" : "dark-content"}
+    //   backgroundColor={colorScheme === "dark" ? "#03174C" : "#fff"}
+    // />
+
+    <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="(tabs)" />
+      <Stack.Screen name="movies/[id]" />
+    </Stack>
   );
 }

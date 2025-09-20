@@ -12,6 +12,9 @@ module.exports = {
       colors: {
         primary: "#03174C",
         secondary: "#8E97FD",
+        text: {
+          muted: "#98A1BD",
+        },
       },
       fontFamily: {
         jakartaBold: "PlusJakartaSans-Bold",
